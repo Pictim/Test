@@ -1,0 +1,44 @@
+{% if mas %}
+{% for el in mas %}
+<div class="px-sm-2 bg-light mt-3 w-auto">
+    <form method="post" target="_self">
+        {% csrf_token %}
+        ФИО: <input type="text" name="izm1" class="form-control mt-2"
+                           placeholder="{{ el.fio }}" maxlength="150" value="{{ el.fio }}">
+        Должность:
+        <select class="form-select mt-2" name="izm2" aria-label="Default select example">
+            {% for el1 in mas1 %}
+            {% if el.dol_id == el1.id %}
+            <option value="{{ el1.id }}" selected>{{ el1.dol }}</option>
+            {% else %}
+            <option value="{{ el1.id }} ">{{ el1.dol }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        {% if el.uda == '1' %}
+        Статус трудоустройства в компании:
+        <select class="form-select mt-2" name="izm3" aria-label="Default select example">
+            <option value="1" selected>Уволен(а)</option>
+            <option value="0">Действующий сотрудник компании</option>
+        </select>
+        Дата:
+        <input type="text" name="izm4" class="form-control mt-2"
+               placeholder="{{ el.dat }}" maxlength="150" value="{{ el.dat }}">
+        {% else %}
+        Статус трудоустройства в компании:
+        <select class="form-select mt-2" name="izm3" aria-label="Default select example">
+            <option value="0" selected>Действующий сотрудник компании</option>
+            <option value="1">Уволен(а)</option>
+        </select>
+        {% endif %}
+        <button type="submit" class="btn btn-success w-auto" name="Сохранить изменения" value="{{ el.id }}">Сохранить изменения</button>
+    </form>
+    <form method="post" target="_self">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger w-auto" name="Удалить" value="{{ el.id }}">Удалить</button>
+    </form>
+</div>
+{% endfor %}
+{% else %}
+<p><h1>Данные отсутствуют</h1>
+{% endif %}

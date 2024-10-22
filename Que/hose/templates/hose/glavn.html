@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="bg-light mt-3 mx-5 w-auto">
+    <div class="mx-3">
+        <button type="button" data-bs-toggle="collapse"
+                data-bs-target="#regproject1" aria-expanded="false"
+                aria-controls="collapseExample" class="btn btn-primary w-auto mt-3">
+            +</button>
+        <div class="collapse" id="regproject1">
+            <div class="card card-body">
+                <h3>Создание пользователя</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="rega1" class="form-control mt-2"
+                           placeholder="ФИО" maxlength="150">
+                    <select class="form-select mt-2" name="rega2" aria-label="Default select example">
+                        <option value=" " selected>Выбирете должность</option>
+                        {% for el in mas1 %}
+                        <option value="{{ el.dol }}">{{ el.dol }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success w-auto mt-2" name="Зарегистрировать">
+                        Зарегистрировать пользователя</button>
+                </form>
+            </div>
+        </div>
+        <h4>{{ error }}</h4>
+    </div>
+    {% include 'hose/povtori/all_el.html' %}
+</div>
+{% endblock %}
